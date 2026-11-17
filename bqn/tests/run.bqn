@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 # BQN engine tests. Usage: bqn bqn/tests/run.bqn <interchange-dir>
 # The interchange directory is produced by `skytrace export <dir>` (C engine); every buffer read from it is
 # recomputed independently here and compared, so this is a cross-implementation check, not a self-check.

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+// Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 #ifndef SKYTRACE_CORE_H
 #define SKYTRACE_CORE_H
 /* Core runtime: SHA-256, growable byte buffers, a strict JSON value model with three
