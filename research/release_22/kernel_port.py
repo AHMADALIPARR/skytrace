@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 """Bounded NDJSON process for OTP Port interoperability (one line => one reply).
 This protocol process is testable without an Elixir runtime. Run:
 python3 -u research/release_22/kernel_port.py
