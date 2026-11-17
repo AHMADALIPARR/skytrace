@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+// Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 // Checked copy of closure.saw for SAW 1.6: `name <- do {...}` is a type error there (a do-block
 // is not an action to bind), so the specs use `let name = do {...}`; SAW resolves the bitcode path
 // relative to this script, and Cryptol needs parentheses around each `==` operand of `&&`/`||`

@@ -1,3 +1,5 @@
+; SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+; Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 ; Bounded lemma (n = 6 nodes) for the containment-forest check used by kernel/src/skytrace.c
 ; st_validate and src/graph/csr.c: following a functional parent relation p : node -> node | -1,
 ; a walk that has not reached the root marker -1 after n steps must have repeated a node (so the
