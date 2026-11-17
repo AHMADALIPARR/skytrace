@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 """SKYTRACE deterministic graph/sensor numerical kernel; JSON-lines in/out.
 No external dependencies. Inputs are synthetic or externally sourced only when labeled.
 """
