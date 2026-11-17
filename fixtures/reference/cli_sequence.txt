@@ -1,0 +1,16 @@
+sources
+cases
+verify
+ingest aaro PR-018 sample.MP4 https://www.aaro.mil/UAP-Records/sample
+ingest aaro PR-018 sample.MP4 https://www.aaro.mil/UAP-Records/sample
+ingest nope R1 sample.MP4 https://example.org/x
+ingest aaro R2 sample.MP4 ftp://example.org/x
+ingest aaro R3 noext https://example.org/x
+ingest aaro R4 file.toolongext https://example.org/x
+ingest aaro R5 missing.bin https://example.org/x
+ingest pursue DOW-UAP-PR113 sample.MP4 http://www.war.gov/UFO/
+cases
+verify
+@cat data/cases/ST-B7AA1750CD772D07.json
+@tamper data/raw/d7b3ec660dea7159af1e7835a9a488a6f19e3d6bf67de5bcafba1ed7d25315d4.mp4
+verify

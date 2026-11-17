@@ -1,0 +1,89 @@
+$ sources
+pursue	primary	https://www.war.gov/UFO/
+aaro	primary	https://www.aaro.mil/UAP-Records/
+nara	primary	https://www.archives.gov/research/topics/uaps/rg-615
+nasa	primary	https://science.nasa.gov/uap/
+geipan	primary	https://www.cnes-geipan.fr/en/search/cas
+nuforc	self_reported	https://nuforc.org/ndx/?id=event
+opensky	instrument	https://openskynetwork.github.io/opensky-api/trino.html
+celestrak	instrument	https://celestrak.org/NORAD/documentation/gp-data-formats.php
+jpl_fireball	instrument	https://ssd-api.jpl.nasa.gov/doc/fireball.html
+ams	witness_reports	https://fireball.amsmeteors.org/members/imo_view/browse_reports/
+[exit 0]
+$ cases
+[stderr] ERROR: ENOENT: no such file or directory, scandir '<ROOT>/data/cases'
+[exit 1]
+$ verify
+[stderr] ERROR: ENOENT: no such file or directory, scandir '<ROOT>/data/cases'
+[exit 1]
+$ ingest aaro PR-018 sample.MP4 https://www.aaro.mil/UAP-Records/sample
+{
+  "case_id": "ST-B7AA1750CD772D07",
+  "sha256": "d7b3ec660dea7159af1e7835a9a488a6f19e3d6bf67de5bcafba1ed7d25315d4",
+  "case_file": "data/cases/ST-B7AA1750CD772D07.json",
+  "evidence_file": "data/raw/d7b3ec660dea7159af1e7835a9a488a6f19e3d6bf67de5bcafba1ed7d25315d4.mp4"
+}
+[exit 0]
+$ ingest aaro PR-018 sample.MP4 https://www.aaro.mil/UAP-Records/sample
+[stderr] ERROR: Evidence already linked to case
+[exit 1]
+$ ingest nope R1 sample.MP4 https://example.org/x
+[stderr] ERROR: Unknown source ID
+[exit 1]
+$ ingest aaro R2 sample.MP4 ftp://example.org/x
+[stderr] ERROR: Usage: ingest <source-id> <source-record-id> <local-file> <original-url>
+[exit 1]
+$ ingest aaro R3 noext https://example.org/x
+{
+  "case_id": "ST-D9647212A15115BD",
+  "sha256": "73cb3858a687a8494ca3323053016282f3dad39d42cf62ca4e79dda2aac7d9ac",
+  "case_file": "data/cases/ST-D9647212A15115BD.json",
+  "evidence_file": "data/raw/73cb3858a687a8494ca3323053016282f3dad39d42cf62ca4e79dda2aac7d9ac.noext"
+}
+[exit 0]
+$ ingest aaro R4 file.toolongext https://example.org/x
+[stderr] ERROR: Unsupported file extension
+[exit 1]
+$ ingest aaro R5 missing.bin https://example.org/x
+[stderr] ERROR: ENOENT: no such file or directory, open '<ROOT>/missing.bin'
+[exit 1]
+$ ingest pursue DOW-UAP-PR113 sample.MP4 http://www.war.gov/UFO/
+{
+  "case_id": "ST-BA0F81E0CBEC21E0",
+  "sha256": "d7b3ec660dea7159af1e7835a9a488a6f19e3d6bf67de5bcafba1ed7d25315d4",
+  "case_file": "data/cases/ST-BA0F81E0CBEC21E0.json",
+  "evidence_file": "data/raw/d7b3ec660dea7159af1e7835a9a488a6f19e3d6bf67de5bcafba1ed7d25315d4.mp4"
+}
+[exit 0]
+$ cases
+ST-B7AA1750CD772D07	aaro	unassessed	unknown
+ST-BA0F81E0CBEC21E0	pursue	unassessed	unknown
+ST-D9647212A15115BD	aaro	unassessed	unknown
+Total: 3
+[exit 0]
+$ verify
+PASS: 3 cases, 3 evidence files independently checked
+[exit 0]
+$ @cat data/cases/ST-B7AA1750CD772D07.json
+{
+  "case_id": "ST-B7AA1750CD772D07",
+  "source_id": "aaro",
+  "source_record_id": "PR-018",
+  "observed_at": null,
+  "time_precision": "unknown",
+  "classification": "unassessed",
+  "evidence": [
+    {
+      "sha256": "d7b3ec660dea7159af1e7835a9a488a6f19e3d6bf67de5bcafba1ed7d25315d4",
+      "relative_path": "data/raw/d7b3ec660dea7159af1e7835a9a488a6f19e3d6bf67de5bcafba1ed7d25315d4.mp4",
+      "source_url": "https://www.aaro.mil/UAP-Records/sample",
+      "ingested_at": "<TIME>",
+      "bytes": 25
+    }
+  ],
+  "claims": []
+}
+$ @tamper data/raw/d7b3ec660dea7159af1e7835a9a488a6f19e3d6bf67de5bcafba1ed7d25315d4.mp4
+$ verify
+[stderr] ERROR: Hash mismatch data/raw/d7b3ec660dea7159af1e7835a9a488a6f19e3d6bf67de5bcafba1ed7d25315d4.mp4
+[exit 1]

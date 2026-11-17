@@ -1,0 +1,85 @@
+{
+  "braid": {
+    "braid_relation_max_abs_error": 1.5700924586837752e-16,
+    "dag_word_example": [
+      1,
+      2,
+      1
+    ],
+    "equivalent_word": [
+      2,
+      1,
+      2
+    ],
+    "mapping_status": "example braid words, not uniquely inferred from provenance",
+    "word_matrix_max_abs_error": 1.5700924586837752e-16
+  },
+  "fixture": "synthetic-batch.json",
+  "graph": {
+    "closure": {
+      "kernel_active": 3,
+      "strict_active": 3,
+      "unknown_corroboration": 2,
+      "unknown_range": 2
+    },
+    "edges": 2,
+    "max_path_edges": 2,
+    "nodes": 3,
+    "root_to_leaf_paths": 1,
+    "roots": 1,
+    "topological_order": [
+      "AGENCY-DOW",
+      "R01",
+      "DOW-UAP-DEMO-001"
+    ]
+  },
+  "observational_data": false,
+  "ternary_closure": {
+    "kernel_active_combinations": 16,
+    "mismatches": [
+      {
+        "corroborated": -1,
+        "range": -1,
+        "resolution": -1
+      },
+      {
+        "corroborated": 0,
+        "range": -1,
+        "resolution": -1
+      },
+      {
+        "corroborated": 1,
+        "range": -1,
+        "resolution": -1
+      },
+      {
+        "corroborated": -1,
+        "range": 0,
+        "resolution": -1
+      },
+      {
+        "corroborated": 0,
+        "range": 0,
+        "resolution": -1
+      },
+      {
+        "corroborated": 1,
+        "range": 0,
+        "resolution": -1
+      },
+      {
+        "corroborated": -1,
+        "range": 1,
+        "resolution": -1
+      },
+      {
+        "corroborated": 0,
+        "range": 1,
+        "resolution": -1
+      }
+    ],
+    "policy_mismatch_combinations": 8,
+    "strict_active_combinations": 8,
+    "ternary_combinations": 27
+  }
+}
