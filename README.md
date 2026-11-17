@@ -346,7 +346,7 @@ None remains. All JavaScript and Python files were ported and then deleted:
 - **Python ported to C11/Prolog:** `numerics/sensor_graph.py` and its test (now `skytrace analyze`), `spec/tests/schema_contract.py` and `research/tests/test_hypotheses.py` (now the Prolog `schema_contract` and `hypotheses_contract` suites).
 - **Python research benchmarks ported to C11/BQN:** `graph_budget/`, `joint_fusion/`, `numerical/analyze.py`, `parameter_recovery/`, `release_22/` (including `kernel_port.py`, now `skytrace port`), `source_fusion/`, `speculative_math/` and `task_information/`, with their tests. `skytrace research <study>` reruns a study and `skytrace research-check <study>` compares it with the committed `results*.json`. The mapping and tolerances are in `research/PORTING.md`.
 
-`beam/` was left unchanged: `Skytrace.Numerical.analyze/3` still launches its kernel path through `python3` by default.
+`beam/` now starts the C kernel rather than Python: `Skytrace.Numerical.analyze/3` runs `skytrace analyze`, and `Skytrace.Release22` runs `skytrace port`. The binary path is taken from the `SKYTRACE` environment variable or from `PATH`, and can still be passed as an argument.
 
 ## Limitations and epistemic rules
 

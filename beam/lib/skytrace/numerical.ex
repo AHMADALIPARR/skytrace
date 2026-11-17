@@ -6,7 +6,9 @@ defmodule Skytrace.Numerical do
   Each worker receives a locally archived normalized graph fragment; no live scraping.
   Fragments are merged with exact IDs, preserving provenance and rejecting conflicts.
   The port protocol is one JSON request line to one JSON response line.
-  Requires OTP 27+ (Erlang :json), Python 3.10+, and the checked-in kernel.
+  Requires OTP 27+ (Erlang :json) and the skytrace binary (`skytrace analyze`).
+  The binary is System.get_env("SKYTRACE"), System.find_executable("skytrace"),
+  or an explicit argument.
   """
 
   @doc "Parallel fragment loading; errors are returned, never silently omitted."
@@ -34,14 +36,14 @@ defmodule Skytrace.Numerical do
   end
 
   @doc "Merge source fragments after worker validation, then submit to the kernel."
-  def analyze(paths, kernel_path, python_bin \\ System.find_executable("python3")) do
+  def analyze(paths, kernel_arg \\ "analyze", skytrace_bin \\ default_skytrace_bin()) do
     results = load_fragments(paths)
     case Enum.find(results, fn x -> match?({:error, _}, x) end) do
       {:error, reason} -> {:error, {:worker_failed, reason}}
       nil ->
         fragments = Enum.map(results, fn {:ok, x} -> x["fragment"] end)
         case merge(fragments) do
-          {:ok, graph} -> run_port(graph, kernel_path, python_bin)
+          {:ok, graph} -> run_port(graph, kernel_arg, skytrace_bin)
           {:error, _} = err -> err
         end
     end
@@ -62,26 +64,33 @@ defmodule Skytrace.Numerical do
     end
   end
 
-  def run_port(_graph, _kernel_path, nil), do: {:error, :python_missing}
-  def run_port(graph, kernel_path, python_bin) when is_binary(python_bin) do
-    # Explicit executable + arg list, no shell interpolation.
-    port = Port.open({:spawn_executable, python_bin}, [
-      :binary, :exit_status, :use_stdio, {:args, [kernel_path]}, {:line, 8_388_608}
-    ])
-    true = Port.command(port, JasonSafe.encode!(graph) <> "\n")
-    response = receive do
-      {^port, {:data, {:eol, line}}} ->
-        case JasonSafe.decode!(line) do
-          %{"status" => "ok"} = data -> {:ok, data}
-          %{"status" => "error"} = data -> {:error, {:kernel_rejected, data}}
+  def run_port(_graph, _kernel_arg, nil), do: {:error, :skytrace_missing}
+  def run_port(graph, kernel_arg, skytrace_bin) when is_binary(skytrace_bin) do
+    # Explicit executable + arg list, no shell interpolation. System.cmd closes
+    # stdin after the request so `skytrace analyze` (which reads until EOF) replies.
+    task = Task.async(fn ->
+      System.cmd(skytrace_bin, [kernel_arg],
+        input: JasonSafe.encode!(graph) <> "\n",
+        stderr_to_stdout: false
+      )
+    end)
+    case Task.yield(task, 30_000) || Task.shutdown(task, :brutal_kill) do
+      {:ok, {out, 0}} ->
+        case String.split(out, "\n", trim: true) do
+          [line] ->
+            case JasonSafe.decode!(line) do
+              %{"status" => "ok"} = data -> {:ok, data}
+              %{"status" => "error"} = data -> {:error, {:kernel_rejected, data}}
+              _ -> {:error, :unexpected_port_reply}
+            end
           _ -> {:error, :unexpected_port_reply}
         end
-      {^port, {:data, {:noeol, _}}} -> {:error, :oversized_response}
-      {^port, {:exit_status, code}} -> {:error, {:kernel_exit, code}}
-    after
-      30_000 -> {:error, :kernel_timeout}
+      {:ok, {_out, code}} -> {:error, {:kernel_exit, code}}
+      nil -> {:error, :kernel_timeout}
     end
-    Port.close(port)
-    response
+  end
+
+  defp default_skytrace_bin do
+    System.get_env("SKYTRACE") || System.find_executable("skytrace")
   end
 end

@@ -5,14 +5,16 @@ defmodule Skytrace.Release22 do
   Dedicated bounded-worker protocol for SKYTRACE 2.2's numerical kernel.
   Protocol request: %{"operation" => "physical_fit", "seed" => integer,
                       "job_id" => string}; one NDJSON line yields one response.
-  No HTTP fetch or archive mutation occurs in this worker.
+  Talks to `skytrace port` (the C replacement of research/release_22/kernel_port.py).
+  The binary is System.get_env("SKYTRACE"), System.find_executable("skytrace"),
+  or an explicit argument. No HTTP fetch or archive mutation occurs in this worker.
   """
   @max_concurrency 2
   @timeout 60_000
 
-  def process_jobs(supervisor, jobs, python, script) when is_list(jobs) do
+  def process_jobs(supervisor, jobs, skytrace_bin \\ default_skytrace_bin(), arg \\ "port") when is_list(jobs) do
     Task.Supervisor.async_stream_nolink(supervisor, jobs,
-      fn job -> run_job(job, python, script) end,
+      fn job -> run_job(job, skytrace_bin, arg) end,
       ordered: true, max_concurrency: @max_concurrency,
       timeout: @timeout, on_timeout: :kill_task
     )
@@ -22,8 +24,9 @@ defmodule Skytrace.Release22 do
     end)
   end
 
-  def run_job(job, python, script) when is_map(job) do
-    case System.cmd(python, ["-u", script],
+  def run_job(_job, nil, _arg), do: {:error, :skytrace_missing}
+  def run_job(job, skytrace_bin, arg \\ "port") when is_map(job) and is_binary(skytrace_bin) do
+    case System.cmd(skytrace_bin, [arg],
       input: :json.encode(job) <> "\n", stderr_to_stdout: false) do
       {out, 0} ->
         case String.split(String.trim(out), "\n") do
@@ -37,5 +40,9 @@ defmodule Skytrace.Release22 do
         end
       {_out, exit_code} -> {:error, {:kernel_exit, exit_code}}
     end
+  end
+
+  defp default_skytrace_bin do
+    System.get_env("SKYTRACE") || System.find_executable("skytrace")
   end
 end
