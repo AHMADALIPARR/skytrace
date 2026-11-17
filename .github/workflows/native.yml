@@ -1,0 +1,68 @@
+name: native
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  c-bqn-prolog-proofs:
+    runs-on: ubuntu-latest
+    env:
+      CBQN_COMMIT: 588753c83963f5b1e9247bfba9c16758da22a348
+      SAW_VERSION: "1.6"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install C toolchain, SWI-Prolog, z3, clang
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends cmake make gcc clang swi-prolog-nox z3
+          swipl -g "use_module(library(plunit)), use_module(library(pcre)), use_module(library(http/json)), halt" -t "halt(1)"
+
+      - name: Cache CBQN
+        id: cbqn-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/cbqn
+          key: cbqn-${{ env.CBQN_COMMIT }}-o3-ffi0
+
+      - name: Build CBQN at pinned commit
+        if: steps.cbqn-cache.outputs.cache-hit != 'true'
+        run: |
+          git clone https://github.com/dzaima/CBQN.git /tmp/CBQN
+          git -C /tmp/CBQN checkout "$CBQN_COMMIT"
+          make -C /tmp/CBQN o3 FFI=0
+          mkdir -p ~/cbqn && cp /tmp/CBQN/BQN ~/cbqn/bqn
+
+      - name: Cache SAW
+        id: saw-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/saw
+          key: saw-${{ env.SAW_VERSION }}-ubuntu-24.04-with-solvers
+
+      - name: Download SAW
+        if: steps.saw-cache.outputs.cache-hit != 'true'
+        run: |
+          curl -sSfL -o /tmp/saw.tgz "https://github.com/GaloisInc/saw-script/releases/download/v${SAW_VERSION}/saw-${SAW_VERSION}-ubuntu-24.04-X64-with-solvers.tar.gz"
+          mkdir -p ~/saw && tar xzf /tmp/saw.tgz -C ~/saw --strip-components=1
+
+      - name: Tool versions
+        run: |
+          echo "$HOME/cbqn" >> "$GITHUB_PATH"
+          echo "$HOME/saw/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/cbqn:$HOME/saw/bin:$PATH"
+          gcc --version | head -1; clang --version | head -1; cmake --version | head -1
+          bqn -p '1+1'; swipl --version; z3 --version; saw --version
+
+      - name: Configure
+        run: cmake -S . -B build-ci -DSKYTRACE_REQUIRE_BQN=ON -DSKYTRACE_REQUIRE_PROLOG=ON -DSKYTRACE_REQUIRE_Z3=ON -DSKYTRACE_REQUIRE_SAW=ON
+
+      - name: Build
+        run: cmake --build build-ci -j1
+
+      - name: Test (C, CLI, BQN, Prolog, SMT, SAW)
+        run: ctest --test-dir build-ci -j1 --output-on-failure
+
+      - name: Original kernel tests (unchanged)
+        run: make -C kernel test CC=gcc
