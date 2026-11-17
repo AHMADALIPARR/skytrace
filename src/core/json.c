@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+// Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 /* Strict RFC 8259 JSON: validated UTF-8, no NaN/Infinity, bounded depth and size.
  * Writers reproduce Python json.dumps(sort_keys, compact, ensure_ascii=False),
  * ECMAScript JSON.stringify(v, null, 2), and RFC 8785 canonical bytes. */
