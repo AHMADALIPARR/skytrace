@@ -1,0 +1,44 @@
+# ============================================================================
+# SKYTRACE 1.9 — Left-Greedy Garside Normal Form & Topological Feature Map
+# Pure SKI / Unlambda Combinator Calculus (Zero Dependencies)
+# ============================================================================
+
+# --- 1. Core Combinator Basis (I, K, S, B, C, W, Y) ---
+# I = i, K = k, S = s
+# B = ``s`ksk  (composition: B f g x = f (g x))
+# C = ``s``s`k``s`ksks`kk  (flip: C f x y = f y x)
+# T = ``s`k`s`k``s`kskk``s``s`ksk`kk  (pair / cons: T a b f = f a b)
+# Fst = ``s`k`sik`kk  (p -> p K)
+# Snd = ``s`k`sik`k`ki (p -> p (K I))
+
+# --- 2. Church Booleans & Conditionals ---
+# TRUE  = k
+# FALSE = `ki
+# AND   = ``s``s`ks``s`kk`k`ki`kk
+# OR    = ``s`sik`kk
+# NOT   = ``s``s`sik`k`ki`kk
+
+# --- 3. Church Numerals & Arithmetic ---
+# C0 = `ki
+# C1 = i
+# C2 = ``s`s`ksk`s`kski
+# C3 = ``s`s`ksk`s`ksk``s`s`ksk`s`kski
+# SUCC = ``s`s`ksk
+# ADD  = ``s`ks``s`k`s`ks`s`ksk
+# MUL  = ``s`ksk
+# PRED = n -> fst (n (p -> pair (snd p) (succ (snd p))) (pair C0 C0))
+# SUB  = m n -> n PRED m
+# ISZERO = n -> n (`k`ki) k
+
+# --- 4. Signed Integers as Church Pairs Z = (pos, neg) ---
+# Z_ZERO = ``s`k`s`k``s`kskk``s``s`ksk`kk`ki`ki
+# Z_POS1 = ``s`k`s`k``s`kskk``s``s`ksk`kk i `ki
+# Z_NEG1 = ``s`k`s`k``s`kskk``s``s`ksk`kk `ki i
+# Z_ADD  = z1 z2 -> pair (ADD (fst z1) (fst z2)) (ADD (snd z1) (snd z2))
+# Z_NORM = z -> (ISZERO (snd z)) z ((ISZERO (fst z)) z (Z_NORM (pair (PRED (fst z)) (PRED (snd z)))))
+
+# --- 5. Left-Greedy Garside Slide & Canonical Factor Extraction ---
+# Executes left-greedy reduction: w = Δ^p A_1 A_2 ... A_k
+# where S(A_{j+1}) ⊆ F(A_j) in the weak Bruhat order on D_n.
+
+
