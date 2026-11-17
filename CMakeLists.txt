@@ -14,17 +14,19 @@ option(SKYTRACE_REQUIRE_BQN "Fail configuration when the BQN interpreter is miss
 option(SKYTRACE_REQUIRE_PROLOG "Fail configuration when SWI-Prolog is missing" ON)
 
 add_library(skytrace_core STATIC
-  src/core/error.c src/core/sha256.c src/core/tri.c src/core/io.c src/core/json.c src/core/linalg.c
+  src/core/error.c src/core/rng.c src/core/rng_tables.c src/core/sha256.c src/core/tri.c src/core/io.c src/core/json.c src/core/linalg.c
   src/evidence/case.c src/evidence/store.c src/evidence/journal.c
   src/graph/csr.c src/graph/records.c
   src/sensor/sensor_graph.c
   src/fusion/constant_turn.c
   src/braid/fibonacci.c src/braid/burau.c src/braid/features.c
-  src/quantum/quantum.c src/quantum/entropy.c)
+  src/quantum/quantum.c src/quantum/entropy.c
+  src/research/npcompat.c src/research/ridge.c src/research/param_recovery.c src/research/studies_pr.c
+  src/research/task_information.c src/research/joint_fusion.c src/research/speculative_math.c src/research/compare.c src/research/numerical.c)
 target_include_directories(skytrace_core PUBLIC include)
 target_link_libraries(skytrace_core PUBLIC m)
 
-add_executable(skytrace src/cli/main.c src/cli/cases.c src/cli/reports.c)
+add_executable(skytrace src/cli/main.c src/cli/cases.c src/cli/reports.c src/cli/research.c src/cli/research_export.c)
 target_link_libraries(skytrace PRIVATE skytrace_core)
 
 enable_testing()
@@ -36,6 +38,21 @@ endforeach()
 add_executable(test_cli tests/native/test_cli.c)
 target_link_libraries(test_cli PRIVATE skytrace_core)
 add_test(NAME native_cli COMMAND test_cli $<TARGET_FILE:skytrace> ${CMAKE_SOURCE_DIR})
+
+# Research ports (formerly Python under research/): unit-test ports, bit-exact RNG streams, and
+# agreement of every report with its committed results file (tolerances in research/PORTING.md).
+foreach(t research_rng research_pr research_ti_sm)
+  add_executable(test_${t} tests/native/test_${t}.c)
+  target_link_libraries(test_${t} PRIVATE skytrace_core)
+  add_test(NAME native_${t} COMMAND test_${t} ${CMAKE_SOURCE_DIR})
+endforeach()
+add_executable(test_research_jf tests/native/test_research_jf.c)
+target_link_libraries(test_research_jf PRIVATE skytrace_core)
+add_test(NAME native_research_jf COMMAND test_research_jf ${CMAKE_SOURCE_DIR} $<TARGET_FILE:skytrace>)
+foreach(s parameter_recovery robustness graph_budget task_information source_fusion joint_fusion numerical release22)
+  add_test(NAME research_${s}_vs_committed COMMAND skytrace research-check ${s})
+  set_tests_properties(research_${s}_vs_committed PROPERTIES ENVIRONMENT SKYTRACE_ROOT=${CMAKE_SOURCE_DIR})
+endforeach()
 
 add_test(NAME cli_braid_check COMMAND skytrace braid-check)
 add_test(NAME cli_quantum_check COMMAND skytrace quantum-check)
@@ -49,6 +66,10 @@ if(BQN_EXE)
   add_test(NAME bqn_tests COMMAND ${BQN_EXE} ${CMAKE_SOURCE_DIR}/bqn/tests/run.bqn ${CMAKE_BINARY_DIR}/interchange)
   set_tests_properties(bqn_export PROPERTIES FIXTURES_SETUP interchange)
   set_tests_properties(bqn_tests PROPERTIES FIXTURES_REQUIRED interchange)
+  add_test(NAME bqn_research_export COMMAND skytrace research-export ${CMAKE_BINARY_DIR}/research_interchange)
+  add_test(NAME bqn_research COMMAND ${BQN_EXE} ${CMAKE_SOURCE_DIR}/bqn/tests/research.bqn ${CMAKE_BINARY_DIR}/research_interchange)
+  set_tests_properties(bqn_research_export PROPERTIES FIXTURES_SETUP research_interchange)
+  set_tests_properties(bqn_research PROPERTIES FIXTURES_REQUIRED research_interchange)
 elseif(SKYTRACE_REQUIRE_BQN)
   message(FATAL_ERROR "BQN interpreter (CBQN) not found; BQN tests cannot be reported as passing")
 endif()

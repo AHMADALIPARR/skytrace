@@ -14,4 +14,8 @@ st_code cli_braid_equiv(const char *a, const char *b, st_error *err);
 st_code cli_quantum_check(st_error *err);
 st_code cli_fit(const char *reference_path, const char *python_results_path, st_error *err);
 st_code cli_export(const char *dir, st_error *err);
+st_code cli_research(const char *study, const char *root, st_error *err);
+st_code cli_research_check(const char *study, const char *root, st_error *err);
+st_code cli_port(st_error *err);
+st_code cli_research_export(const char *dir, const char *root, st_error *err);
 #endif

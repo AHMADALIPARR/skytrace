@@ -10,7 +10,8 @@
 static const char *USAGE =
   "Commands: sources | ingest <source-id> <record-id> <local-file> <original-url> | cases | verify"
   " | analyze (NDJSON stdin) | records <batch.json> | braid-check | braid-equiv <w1> <w2>"
-  " | quantum-check | fit <physical_fixture.json> <release_22 results.json> | export <dir>";
+  " | quantum-check | fit <physical_fixture.json> <release_22 results.json> | export <dir>"
+  " | research <study> | research-check <study> | research-export <dir> | port (NDJSON stdin)";
 
 int main(int argc, char **argv) {
   const char *root = getenv("SKYTRACE_ROOT");
@@ -29,6 +30,10 @@ int main(int argc, char **argv) {
   else if (!strcmp(cmd, "quantum-check")) rc = cli_quantum_check(&err);
   else if (!strcmp(cmd, "fit") && argc == 4) rc = cli_fit(argv[2], argv[3], &err);
   else if (!strcmp(cmd, "export") && argc == 3) rc = cli_export(argv[2], &err);
+  else if (!strcmp(cmd, "research") && argc == 3) rc = cli_research(argv[2], root, &err);
+  else if (!strcmp(cmd, "research-check") && argc == 3) rc = cli_research_check(argv[2], root, &err);
+  else if (!strcmp(cmd, "research-export") && argc == 3) rc = cli_research_export(argv[2], root, &err);
+  else if (!strcmp(cmd, "port")) rc = cli_port(&err);
   else rc = st_fail(&err, ST_E_ARGUMENT, -1, "%s", USAGE);
   fflush(stdout);
   if (rc) { fprintf(stderr, "ERROR: %s\n", err.message); return 1; }
