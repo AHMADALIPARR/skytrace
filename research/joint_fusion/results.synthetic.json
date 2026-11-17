@@ -1,0 +1,69 @@
+{
+  "experiment": "SKYTRACE 2.1 joint metadata/sensor fusion",
+  "seed": 20261117,
+  "synthetic": true,
+  "split": {
+    "train": 100,
+    "validation": 40,
+    "test": 40
+  },
+  "branches": {
+    "bearing_only": {
+      "mae_rad_s": 0.08165247121382466,
+      "rmse_rad_s": 0.0928926857032203,
+      "bias_rad_s": 0.004502005939228676,
+      "alpha": 100.0,
+      "coverage90": 0.975,
+      "interval90_width": 0.2919512744134121,
+      "feature_count": 6,
+      "construction_all_s": 0.17543683300000623,
+      "training_s": 0.001580594999992968,
+      "total_s": 0.1770174279999992
+    },
+    "multibearing": {
+      "mae_rad_s": 0.007550907198335982,
+      "rmse_rad_s": 0.009793200780351287,
+      "bias_rad_s": -0.0012057575512807374,
+      "alpha": 1.0,
+      "coverage90": 1.0,
+      "interval90_width": 0.0488456644592969,
+      "feature_count": 7,
+      "construction_all_s": 1.0084711550000094,
+      "training_s": 0.0009159130000000459,
+      "total_s": 1.0093870680000094
+    },
+    "fused": {
+      "mae_rad_s": 0.007543917593958884,
+      "rmse_rad_s": 0.009783700556326732,
+      "bias_rad_s": -0.0012006482956523111,
+      "alpha": 1.0,
+      "coverage90": 1.0,
+      "interval90_width": 0.04877470271869254,
+      "feature_count": 7,
+      "construction_all_s": 1.3754238329999993,
+      "training_s": 0.0008935700000023417,
+      "total_s": 1.3763174030000016
+    },
+    "fused_braid": {
+      "mae_rad_s": 0.007625208712721153,
+      "rmse_rad_s": 0.009833571675429158,
+      "bias_rad_s": -0.001214128126392649,
+      "alpha": 1.0,
+      "coverage90": 0.975,
+      "interval90_width": 0.04603569996116547,
+      "feature_count": 12,
+      "construction_all_s": 1.2556467779999991,
+      "training_s": 0.001148206000010532,
+      "total_s": 1.2567949840000097
+    }
+  },
+  "wall_s": 3.8210917010000003,
+  "peak_python_allocation_bytes": 87282,
+  "controls": {
+    "duplicate_invariant": true,
+    "distinct_origins": 3,
+    "calibrated_multisensor_rank": 2,
+    "braid_delta_features_norm": 15.064978600944428,
+    "source_id_sample": "SYNTH-6-0"
+  }
+}
