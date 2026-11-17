@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 """SKYTRACE 1.9: task-relevant graph baseline with transparent compute accounting.
 Synthetic data only. Reuses frozen SKYTRACE 1.8 simulation and split.
 """
