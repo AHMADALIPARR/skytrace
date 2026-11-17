@@ -1,0 +1,19 @@
+canonical graph  
+      |  
+      v  
+hard crossing extraction       no useful ordinary gradient through decisions  
+      |  
+      v  
+integer braid word  
+      |  
+      v  
+fixed unitary state propagation  
+      |  
+      v  
+fixed readout features z        cacheable  
+      |  
+      v  
+trainable regression head      gradients update head parameters  
+      |  
+      v  
+trajectory-parameter loss  
