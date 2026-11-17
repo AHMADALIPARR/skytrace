@@ -1,0 +1,19 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "$id":"https://skytrace.local/schemas/artifact.schema.json",
+ "title":"EvidenceArtifact",
+ "type":"object","additionalProperties":false,
+ "required":["schema_version","sha256","size_bytes","source_id","source_record_id","source_url","retrieved_at","media_type","cas_uri","rights"],
+ "properties":{
+  "schema_version":{"const":"1.0.0"},
+  "sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},
+  "size_bytes":{"type":"integer","minimum":0},
+  "source_id":{"type":"string","minLength":1},
+  "source_record_id":{"type":"string","minLength":1},
+  "source_url":{"type":"string","format":"uri","pattern":"^https://"},
+  "retrieved_at":{"type":"string","format":"date-time","pattern":"Z$"},
+  "media_type":{"type":["string","null"]},
+  "cas_uri":{"type":"string","pattern":"^sha256:[a-f0-9]{64}$"},
+  "rights":{"type":["string","null"]}
+ }
+}

@@ -1,0 +1,3 @@
+{
+ "schema_version":"1.0.0","claim_id":"ST-CL-SYNTH001","statement":"The synthetic monocular recording does not determine a unique metric speed.","claim_kind":"qualitative","evidence_sha256":["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"],"assumptions":["Only bearings are available"],"alternatives":["Additional independent range measurement"],"falsifiers":["A calibrated second view or known target distance exists in the original evidence"],"model":{"name":"bearing-only-pinhole","version":"1.0.0","code_sha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},"uncertainty":null,"status":"indeterminate"
+}
