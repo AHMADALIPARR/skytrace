@@ -1,0 +1,101 @@
+{
+  "braid_incremental_mae_delta_rad_s": 1.2592336288498639e-05,
+  "branches": {
+    "source_only": {
+      "alpha": 100.0,
+      "bias_rad_s": -0.00313331442452942,
+      "construction_ms_all_splits": 131.158563,
+      "feature_count": 8,
+      "interval_90_coverage": 0.9571428571428572,
+      "interval_90_width_rad_s": 0.31884638267890963,
+      "mae_rad_s": 0.07719085574256292,
+      "p95_inference_ms": 0.7413675,
+      "rmse_rad_s": 0.0903321260411656,
+      "total_measured_ms": 161.92195299999997,
+      "training_tuning_ms": 0.515717
+    },
+    "temporal": {
+      "alpha": 0.01,
+      "bias_rad_s": 0.00015418811422594674,
+      "construction_ms_all_splits": 136.902986,
+      "feature_count": 10,
+      "interval_90_coverage": 0.8571428571428571,
+      "interval_90_width_rad_s": 0.00308465398183011,
+      "mae_rad_s": 0.0007333583004077383,
+      "p95_inference_ms": 0.51175065,
+      "rmse_rad_s": 0.0010571974908043936,
+      "total_measured_ms": 163.038184,
+      "training_tuning_ms": 0.683872
+    },
+    "temporal_braid": {
+      "alpha": 0.01,
+      "bias_rad_s": 0.00018054181403860298,
+      "construction_ms_all_splits": 131.515985,
+      "feature_count": 19,
+      "interval_90_coverage": 0.9,
+      "interval_90_width_rad_s": 0.0032442467360469796,
+      "mae_rad_s": 0.000745950636696237,
+      "p95_inference_ms": 0.47745544999999995,
+      "rmse_rad_s": 0.0010655466725822712,
+      "total_measured_ms": 156.648759,
+      "training_tuning_ms": 0.87511
+    },
+    "temporal_source": {
+      "alpha": 0.01,
+      "bias_rad_s": 0.0001599761034890624,
+      "construction_ms_all_splits": 148.900447,
+      "feature_count": 18,
+      "interval_90_coverage": 0.8571428571428571,
+      "interval_90_width_rad_s": 0.0031736620508536206,
+      "mae_rad_s": 0.0007302630666317282,
+      "p95_inference_ms": 0.6196230999999999,
+      "rmse_rad_s": 0.0010611566713021828,
+      "total_measured_ms": 176.64688999999998,
+      "training_tuning_ms": 0.703952
+    },
+    "temporal_source_braid": {
+      "alpha": 0.01,
+      "bias_rad_s": 0.0001875912189400805,
+      "construction_ms_all_splits": 130.270567,
+      "feature_count": 27,
+      "interval_90_coverage": 0.9,
+      "interval_90_width_rad_s": 0.003385928747466335,
+      "mae_rad_s": 0.0007487474459290073,
+      "p95_inference_ms": 0.5190284,
+      "rmse_rad_s": 0.0010718824346276964,
+      "total_measured_ms": 158.176996,
+      "training_tuning_ms": 1.973216
+    }
+  },
+  "example_binding": {
+    "calibration_id": "wgs_local_cartesian_m_v1",
+    "corroboration": "unknown",
+    "range_telemetry": "unknown",
+    "record_id": "SYNTHETIC-ONLY-0177",
+    "recording_origin_id": "origin-177",
+    "resolution": "unknown",
+    "sensor_modality": "synthetic_position_meter_v1",
+    "sigma_m": 0.035,
+    "source_id": "pursue",
+    "source_link_status": "synthetic_association",
+    "source_tier": "primary",
+    "source_url": "https://www.war.gov/UFO/"
+  },
+  "real_UAP_sensor_traces_loaded": 0,
+  "source_association": "synthetic, independent of omega",
+  "source_ids_used": [
+    "pursue",
+    "aaro",
+    "nara"
+  ],
+  "source_incremental_mae_delta_rad_s": -3.0952337760101027e-06,
+  "source_registry_version": "2026-11-17",
+  "split": {
+    "held_out": 70,
+    "train": 220,
+    "validation": 70
+  },
+  "study": "SKYTRACE 2.0 synthetic source-attribute fusion",
+  "synthetic_trajectories": 360,
+  "validation_note": "Archive metadata describe public source catalogs only. Associations with generated tracks are controlled simulations, not evidence of real videos."
+}
