@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 """Numerical audit of archive closure + DAG + braid on explicitly synthetic records.
 No observational UAP claims are derived from fixture-only data.
 """
