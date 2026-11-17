@@ -1,0 +1,27 @@
+// Checked copy of closure.saw for SAW 1.6: `name <- do {...}` is a type error there (a do-block
+// is not an action to bind), so the specs use `let name = do {...}`; SAW resolves the bitcode path
+// relative to this script, and Cryptol needs parentheses around each `==` operand of `&&`/`||`
+// (mixed fixity error otherwise). Build the bitcode first with `make -C kernel bitcode`.
+m <- llvm_load_module "../../kernel/build/skytrace.bc";
+
+let incomplete_spec = do {
+  r <- llvm_fresh_var "range" (llvm_int 32);
+  c <- llvm_fresh_var "corroborated" (llvm_int 32);
+  llvm_execute_func [llvm_term r, llvm_term c];
+  llvm_return (llvm_term {{ if (r == (1 : [32])) && (c == (1 : [32])) then 0 else 1 : [32] }});
+};
+llvm_verify m "st_incomplete" [] true incomplete_spec z3;
+
+let active_spec = do {
+  r <- llvm_fresh_var "range" (llvm_int 32);
+  c <- llvm_fresh_var "corroborated" (llvm_int 32);
+  s <- llvm_fresh_var "resolution" (llvm_int 32);
+  llvm_execute_func [llvm_term r, llvm_term c, llvm_term s];
+  llvm_return (llvm_term {{ if (s == (1 : [32])) then 0 else if (r == (1 : [32])) && (c == (1 : [32])) then 0 else 1 : [32] }});
+};
+llvm_verify m "st_active" [] true active_spec z3;
+
+// Universal closure property over all 32-bit inputs; 1 indicates active.
+prove_print z3 {{ \(r : [32]) (c : [32]) (s : [32]) ->
+  ((s != 1) && ((r != 1) || (c != 1))) ==> ((r != 1) || (c != 1)) }};
+print "Proof succeeded! closure property (all 32-bit r, c, s)";

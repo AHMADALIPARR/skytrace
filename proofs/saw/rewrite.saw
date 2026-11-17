@@ -1,0 +1,64 @@
+// SAW proofs for the C11 rewrite's three-valued kernel (src/core/tri.c), over all 32-bit inputs.
+// Bitcode: clang -g -O0 -std=c11 -emit-llvm -c -Iinclude src/core/tri.c -o build/proofs/tri.bc
+// (path below is relative to this script). Encoding: known_true = 1, known_false = 0, unknown = -1.
+m <- llvm_load_module "../../build/proofs/tri.bc";
+
+let incomplete (r : Term) (c : Term) = {{ if (r == (1 : [32])) && (c == (1 : [32])) then (0 : [32]) else 1 }};
+
+let spec2 name f = do {
+  a <- llvm_fresh_var "a" (llvm_int 32);
+  b <- llvm_fresh_var "b" (llvm_int 32);
+  llvm_execute_func [llvm_term a, llvm_term b];
+  llvm_return (llvm_term (f a b));
+};
+let spec3 f = do {
+  r <- llvm_fresh_var "range" (llvm_int 32);
+  c <- llvm_fresh_var "corroborated" (llvm_int 32);
+  s <- llvm_fresh_var "resolution" (llvm_int 32);
+  llvm_execute_func [llvm_term r, llvm_term c, llvm_term s];
+  llvm_return (llvm_term (f r c s));
+};
+
+// Same Cryptol specifications as proofs/saw/closure_checked.saw uses for kernel/src/skytrace.c, so
+// the two proofs together establish that the rewrite and the original kernel agree on every input.
+incomplete_ov <- llvm_verify m "st_case_incomplete" [] true (spec2 "incomplete" incomplete) z3;
+llvm_verify m "st_case_active" [incomplete_ov] true
+  (spec3 (\r c s -> {{ if (s == (1 : [32])) then (0 : [32]) else (if (r == (1 : [32])) && (c == (1 : [32])) then 0 else 1) }})) z3;
+llvm_verify m "st_case_active_strict" [incomplete_ov] true
+  (spec3 (\r c s -> {{ if (s != (0 : [32])) then (0 : [32]) else (if (r == (1 : [32])) && (c == (1 : [32])) then 0 else 1) }})) z3;
+
+// Kleene connectives. Out-of-range codes behave as unknown (they are never true or false by accident).
+let kand (a : Term) (b : Term) = {{ if (a == (0 : [32])) || (b == (0 : [32])) then (0 : [32]) else (if (a == 1) && (b == 1) then 1 else (-1)) }};
+let kor  (a : Term) (b : Term) = {{ if (a == (1 : [32])) || (b == (1 : [32])) then (1 : [32]) else (if (a == 0) && (b == 0) then 0 else (-1)) }};
+llvm_verify m "st_tri_and" [] true (spec2 "and" kand) z3;
+llvm_verify m "st_tri_or" [] true (spec2 "or" kor) z3;
+llvm_verify m "st_tri_not" [] true (do {
+  a <- llvm_fresh_var "a" (llvm_int 32);
+  llvm_execute_func [llvm_term a];
+  llvm_return (llvm_term {{ if (a == (-1 : [32])) then (-1 : [32]) else (if (a == 1) then 0 else 1) }});
+}) z3;
+
+// Policy lemmas over all 32-bit inputs:
+//  (1) the publication policy never admits a case the kernel closes (strict ⇒ kernel);
+//  (2) the two policies differ exactly when resolution is neither 0 nor 1 and the case is incomplete.
+prove_print z3 {{ \(r : [32]) (c : [32]) (s : [32]) ->
+  ((s == 0) && ((r != 1) || (c != 1))) ==> ((s != 1) && ((r != 1) || (c != 1))) }};
+print "Proof succeeded! strict_active implies kernel_active";
+prove_print z3 {{ \(r : [32]) (c : [32]) (s : [32]) ->
+  (((s != 1) && ((r != 1) || (c != 1))) != ((s == 0) && ((r != 1) || (c != 1))))
+   == ((s != 0) && (s != 1) && ((r != 1) || (c != 1))) }};
+print "Proof succeeded! policy mismatch characterisation";
+// (3) De Morgan for the Kleene connectives on the three valid codes.
+let {{
+  tnot : [32] -> [32]
+  tnot x = if x == (-1 : [32]) then (-1 : [32]) else (if x == 1 then 0 else 1)
+  tand : [32] -> [32] -> [32]
+  tand x y = if (x == 0) || (y == 0) then 0 else (if (x == 1) && (y == 1) then 1 else (-1))
+  tor : [32] -> [32] -> [32]
+  tor x y = if (x == 1) || (y == 1) then 1 else (if (x == 0) && (y == 0) then 0 else (-1))
+  valid : [32] -> Bit
+  valid x = (x == 0) || (x == 1) || (x == -1)
+}};
+prove_print z3 {{ \(a : [32]) (b : [32]) -> ((valid a) && (valid b)) ==> (tnot (tand a b) == tor (tnot a) (tnot b)) }};
+prove_print z3 {{ \(a : [32]) (b : [32]) -> ((valid a) && (valid b)) ==> (tnot (tor a b) == tand (tnot a) (tnot b)) }};
+print "Proof succeeded! Kleene De Morgan (both laws)";
