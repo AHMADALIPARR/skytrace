@@ -1,3 +1,5 @@
+% SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+% Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 /*  JSON Schema (draft 2020-12) validator for the subset of keywords used by spec/schemas.
 
     Supported: $schema $id title description (annotations), type (incl. lists), const, enum,

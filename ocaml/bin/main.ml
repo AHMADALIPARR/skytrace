@@ -1,3 +1,5 @@
+(* SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0 *)
+(* Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab *)
 (* NDJSON port: each incoming line is either a record or {"records":[...]}; each
    outgoing line is {"ok":true,"records":[...]} or a structured failure. *)
 open Yojson.Basic.Util
