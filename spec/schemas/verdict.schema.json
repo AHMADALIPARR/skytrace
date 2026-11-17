@@ -1,0 +1,13 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "$id":"https://skytrace.local/schemas/verdict.schema.json",
+ "title":"ClaimGateVerdict",
+ "type":"object","additionalProperties":false,
+ "required":["schema_version","claim_id","claim_sha256","gate","verdict","reason_codes","inputs_sha256","toolchain_sha256","report_sha256","timestamp"],
+ "properties":{
+ "schema_version":{"const":"1.0.0"},"claim_id":{"type":"string","minLength":1},"claim_sha256":{"$ref":"#/$defs/sha"},
+ "gate":{"enum":["G0_SCHEMA","G1_PROVENANCE","G2_INDEPENDENCE","G3_TIME_FRAME","G4_IDENTIFIABILITY","G5_REPRODUCIBILITY","G6_FALSIFICATION","G7_FORMAL","G8_REVIEW","G9_PUBLICATION"]},
+ "verdict":{"enum":["admitted","rejected","indeterminate"]},"reason_codes":{"type":"array","uniqueItems":true,"items":{"type":"string","minLength":1}},
+ "inputs_sha256":{"type":"array","uniqueItems":true,"items":{"$ref":"#/$defs/sha"}},"toolchain_sha256":{"$ref":"#/$defs/sha"},"report_sha256":{"$ref":"#/$defs/sha"},"timestamp":{"type":"string","format":"date-time","pattern":"Z$"}
+ },"$defs":{"sha":{"type":"string","pattern":"^[a-f0-9]{64}$"}}
+}
