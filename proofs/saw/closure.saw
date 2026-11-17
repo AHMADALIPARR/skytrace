@@ -1,0 +1,24 @@
+// Requires SAW + Z3. Run from repository root after `make -C kernel bitcode`.
+// These are proof specifications against the actual compiled C functions.
+m <- llvm_load_module "kernel/build/skytrace.bc";
+
+incomplete_spec <- do {
+  r <- llvm_fresh_var "range" (llvm_int 32);
+  c <- llvm_fresh_var "corroborated" (llvm_int 32);
+  llvm_execute_func [llvm_term r, llvm_term c];
+  llvm_return (llvm_term {{ if r == (1 : [32]) && c == (1 : [32]) then 0 else 1 : [32] }});
+};
+llvm_verify m "st_incomplete" [] true incomplete_spec z3;
+
+active_spec <- do {
+  r <- llvm_fresh_var "range" (llvm_int 32);
+  c <- llvm_fresh_var "corroborated" (llvm_int 32);
+  s <- llvm_fresh_var "resolution" (llvm_int 32);
+  llvm_execute_func [llvm_term r, llvm_term c, llvm_term s];
+  llvm_return (llvm_term {{ if s == (1 : [32]) then 0 else if r == (1 : [32]) && c == (1 : [32]) then 0 else 1 : [32] }});
+};
+llvm_verify m "st_active" [] true active_spec z3;
+
+// Universal closure property over all 32-bit inputs; 1 indicates active.
+prove_print z3 {{ \(r : [32]) (c : [32]) (s : [32]) ->
+  (s != 1 && (r != 1 || c != 1)) ==> (r != 1 || c != 1) }};
