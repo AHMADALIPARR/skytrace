@@ -1,0 +1,17 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "$id":"https://skytrace.local/schemas/observation.schema.json",
+ "title":"MeasurementObservation",
+ "type":"object","additionalProperties":false,
+ "required":["schema_version","observation_id","event_id","report_id","recording_origin_id","artifact_sha256","observation_type","observed_start","observed_end","time_uncertainty_ms","sensor","measurement"],
+ "properties":{
+  "schema_version":{"const":"1.0.0"},"observation_id":{"type":"string","minLength":1},"event_id":{"type":"string","minLength":1},
+  "report_id":{"type":"string","minLength":1},"recording_origin_id":{"type":["string","null"]},
+  "artifact_sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},
+  "observation_type":{"enum":["video","image","radar","radio","eyewitness","telemetry"]},
+  "observed_start":{"type":["string","null"],"format":"date-time"},"observed_end":{"type":["string","null"],"format":"date-time"},
+  "time_uncertainty_ms":{"type":["number","null"],"minimum":0},
+  "sensor":{"type":"object","additionalProperties":false,"required":["sensor_id","calibration_sha256","reference_frame"],"properties":{"sensor_id":{"type":["string","null"]},"calibration_sha256":{"type":["string","null"],"pattern":"^[a-f0-9]{64}$"},"reference_frame":{"enum":["WGS84","ECEF","ENU","TEME","CAMERA","UNKNOWN"]}}},
+  "measurement":{"type":"object","additionalProperties":false,"required":["kind","value","units","uncertainty"],"properties":{"kind":{"enum":["bearing","range","pixel","narrative","doppler","other"]},"value":{"type":["array","string","null"],"items":{"type":"number"}},"units":{"type":["string","null"]},"uncertainty":{"type":["array","null"],"items":{"type":"number","minimum":0}}}}
+ }
+}

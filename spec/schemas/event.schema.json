@@ -1,0 +1,7 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "$id":"https://skytrace.local/schemas/event.schema.json",
+ "title":"CandidateEvent","type":"object","additionalProperties":false,
+ "required":["schema_version","event_id","interval_start","interval_end","time_uncertainty_ms","location","report_ids","status"],
+ "properties":{"schema_version":{"const":"1.0.0"},"event_id":{"type":"string","minLength":1},"interval_start":{"type":["string","null"],"format":"date-time"},"interval_end":{"type":["string","null"],"format":"date-time"},"time_uncertainty_ms":{"type":["number","null"],"minimum":0},"location":{"oneOf":[{"type":"null"},{"type":"object","additionalProperties":false,"required":["latitude_deg","longitude_deg","uncertainty_m"],"properties":{"latitude_deg":{"type":"number","minimum":-90,"maximum":90},"longitude_deg":{"type":"number","minimum":-180,"maximum":180},"uncertainty_m":{"type":"number","minimum":0}}}]},"report_ids":{"type":"array","uniqueItems":true,"items":{"type":"string","minLength":1}},"status":{"enum":["unassessed","identified","insufficient_data","unresolved_after_analysis"]}}
+}
