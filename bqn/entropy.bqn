@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 # Density matrices, partial trace, von Neumann / Shannon entropy and two-qubit correlations.
 # Complex matrices are ⟨re, im⟩ pairs (complex.bqn). Tolerance for physical checks: 1e¯12.
 a ← •Import "assert.bqn"

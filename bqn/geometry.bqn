@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 # Planar coordinates and observation geometry. Points are n×2 matrices (x, y) in metres; bearings are
 # radians measured counter-clockwise from +x, wrapped to [-π, π). CBQN's  x •math.Atan2 y  = atan2(y, x).
 a ← •Import "assert.bqn"
