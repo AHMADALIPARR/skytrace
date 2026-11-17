@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 import sys,unittest,math
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[3]))

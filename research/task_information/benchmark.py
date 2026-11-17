@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 """Pre-registered synthetic task-information benchmark; no real UAP claims.
 Independent generative model, train/test split, comparisons and mutation checks.
 """
