@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+// Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 /* skytrace: single native entry point. Root directory = $SKYTRACE_ROOT or the current directory. */
 #define _POSIX_C_SOURCE 200809L
 #include "cli.h"

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+// Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 /* Native report commands. Every number printed is computed in this process run. */
 #define _POSIX_C_SOURCE 200809L
 #include "cli.h"
