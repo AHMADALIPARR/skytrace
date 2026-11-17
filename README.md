@@ -262,7 +262,7 @@ Branch weights here are Born-rule probabilities of the model. They are mathemati
 
 ## Measured results
 
-The values below are from the ctest output of CI run [44158913485](https://github.com/AHMADALIPARR/skytrace/actions/runs/44158913485) and the local ctest logs, which give the same values. Every check uses a tolerance of 1e-12 unless stated.
+The values below are printed by the test programs and come from verbose ctest logs (`ctest -V`). The CI workflow runs the same 21 tests without `-V`, so it shows pass/fail only; CI run [44164230185](https://github.com/AHMADALIPARR/skytrace/actions/runs/44164230185) passed all 21. Every check uses a tolerance of 1e-12 unless stated.
 
 **Test totals**
 
