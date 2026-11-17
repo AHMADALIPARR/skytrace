@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+// Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 #ifndef SKYTRACE_TEST_CHECK_H
 #define SKYTRACE_TEST_CHECK_H
 #include <math.h>
