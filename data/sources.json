@@ -1,0 +1,15 @@
+{
+  "registry_version":"2026-11-17",
+  "sources":[
+    {"id":"pursue","name":"PURSUE government disclosure archive","url":"https://www.war.gov/UFO/","kind":"government_release","tier":"primary","mode":"manual_catalogue"},
+    {"id":"aaro","name":"AARO official case records and imagery","url":"https://www.aaro.mil/UAP-Records/","kind":"government_reports","tier":"primary","mode":"manual_catalogue"},
+    {"id":"nara","name":"NARA UAP Record Group 615","url":"https://www.archives.gov/research/topics/uaps/rg-615","kind":"government_archive","tier":"primary","mode":"catalogue"},
+    {"id":"nasa","name":"NASA UAP independent study","url":"https://science.nasa.gov/uap/","kind":"scientific_report","tier":"primary","mode":"manual_catalogue"},
+    {"id":"geipan","name":"CNES GEIPAN cases","url":"https://www.cnes-geipan.fr/en/search/cas","kind":"government_case_database","tier":"primary","mode":"csv_or_catalogue"},
+    {"id":"nuforc","name":"NUFORC witness reports","url":"https://nuforc.org/ndx/?id=event","kind":"witness_reports","tier":"self_reported","mode":"site_access"},
+    {"id":"opensky","name":"OpenSky historical aviation observations","url":"https://openskynetwork.github.io/opensky-api/trino.html","kind":"aviation_control","tier":"instrument","mode":"approved_access"},
+    {"id":"celestrak","name":"CelesTrak satellite orbital elements","url":"https://celestrak.org/NORAD/documentation/gp-data-formats.php","kind":"orbital_control","tier":"instrument","mode":"documented_api"},
+    {"id":"jpl_fireball","name":"NASA/JPL fireball data","url":"https://ssd-api.jpl.nasa.gov/doc/fireball.html","kind":"meteor_control","tier":"instrument","mode":"documented_api"},
+    {"id":"ams","name":"American Meteor Society fireballs","url":"https://fireball.amsmeteors.org/members/imo_view/browse_reports/","kind":"meteor_control","tier":"witness_reports","mode":"site_access"}
+  ]
+}
