@@ -1,0 +1,32 @@
+{
+  "schema_version":"1.0.0",
+  "research_question":"Which models explain selected UAP observations, and can autonomous-probe or terrestrial-origin models generate distinguishing measurements?",
+  "evidence_policy":"An unidentified sensor signature does not establish autonomy, replication, extraterrestrial origin, or nonhuman intelligence.",
+  "models":[
+    {"id":"H0_CONVENTIONAL","description":"Aircraft, birds, balloons, satellites, meteorological effects, or sensor artifacts","predictions":["Matches to known-object trajectories under stated uncertainties","Apparent rotations can follow camera optics","Photometric periodicity may match biological wingbeats"],"falsifiers":["Independent calibrated tracks irreconcilable with all prespecified controls"]},
+    {"id":"H1_HUMAN_AUTONOMOUS","description":"Terrestrial human-developed unmanned or autonomous system","predictions":["Kinematics consistent with engineered propulsion and energy budget","Potential RF links, manufacturing materials or deployment pattern"],"falsifiers":["Verified physical measurements incompatible with prespecified engineering envelope"]},
+    {"id":"H2_ANCIENT_TERRESTRIAL","description":"Speculative earlier terrestrial technological system or descendant autonomous machinery","predictions":["Datable materials or industrial byproducts outside modern context","Independent geochemical, archaeological and isotopic anomalies with reproducible provenance"],"falsifiers":["Supposed artifacts date to modern manufacture or natural origins"]},
+    {"id":"H3_EXTRATERRESTRIAL_PROBE","description":"Hypothetical remotely originated autonomous probe","predictions":["Independently verified nonterrestrial provenance","Repeated navigational or engineered signatures not reproduced by terrestrial controls"],"falsifiers":["Confirmed mundane origin for the candidate artifact"]},
+    {"id":"H4_SELF_REPLICATING_PROBE","description":"Autonomous probe capable of obtaining resources and making viable descendants","predictions":["Documented resource acquisition plus manufacture of functional daughter systems","Material and energy accounting consistent with replication"],"falsifiers":["No physical replication evidence in a claim explicitly asserting observed self-replication"]}
+  ],
+  "case_targets":[
+    {"id":"GIMBAL","origin":"NAVAIR/AARO","range":"unknown_public_record","platform_velocity":"unknown_public_record","pixel_motion":"available_from_video","redaction_of_range":"not_established","notes":"LST 1688 denotes a laser code, not range; authenticate original Navy media before frame analysis."},
+    {"id":"DOW-UAP-PR113","origin":"PURSUE","range":"missing_in_analyzed_release","angular_scale":"partly_estimable_from_marks","notes":"Studied in arXiv:2608.12445; test degeneracy under near and far assumptions."},
+    {"id":"DOW-UAP-PR149","origin":"PURSUE","range":"not_fully_constrained","reference_object":"visible","notes":"Studied in arXiv:2608.12445; rederive conditional relative velocity bound."},
+    {"id":"SIX_OBJECT_FLICKER","origin":"PURSUE","brightness_flicker_hz":[7.1,7.9],"notes":"arXiv:2610.08692 discusses bird-wingbeat interpretation; treat as hypothesis and validate frames independently."}
+  ],
+  "telemetry_states":["measured", "displayed", "obscured_confirmed", "not_in_public_video", "not_applicable", "unknown"],
+  "primary_sources":[
+    {"title":"NAVAIR FOIA video documents","url":"https://www.navair.navy.mil/foia/documents"},
+    {"title":"AARO official imagery","url":"https://www.aaro.mil/UAP-Cases/Official-UAP-Imagery/"},
+    {"title":"PURSUE archive","url":"https://www.war.gov/UFO/"},
+    {"title":"Limits on Velocity Recovery from PURSUE Sensor Videos","url":"https://arxiv.org/abs/2608.12445"},
+    {"title":"Six objects reported at 480 mph: brightness flicker","url":"https://arxiv.org/abs/2610.08692"},
+    {"title":"NASA UAP science review","url":"https://science.nasa.gov/uap/"},
+    {"title":"Von Neumann probes rationale and propulsion","url":"https://doi.org/10.1017/S1473550422000027"},
+    {"title":"Self-replicating probes implications for SETI","url":"https://doi.org/10.1017/S1473550422000234"},
+    {"title":"Lotka-Volterra models for extraterrestrial self-replicating probes","url":"https://pubmed.ncbi.nlm.nih.gov/36248760/"},
+    {"title":"Silurian hypothesis","url":"https://doi.org/10.1017/S1473550418000095"},
+    {"title":"Cryptoterrestrial hypothesis","url":"https://doi.org/10.29202/phil-cosm/33/3"}
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "branches": {
+    "braid_metrics": {
+      "alpha": 0.01,
+      "bias_rad_s": 0.0001805418140387382,
+      "cap_pass_p95": true,
+      "feature_count": 19,
+      "interval_90_coverage": 0.9,
+      "interval_90_width_rad_s": 0.003244246736047396,
+      "mae_rad_s": 0.0007459506366964147,
+      "per_track_budget_cap_ms": 50.0,
+      "per_track_full_pipeline_median_ms": 0.3959025,
+      "per_track_full_pipeline_p95_ms": 0.638712,
+      "representation_s_all_splits": 0.153944473,
+      "rmse_rad_s": 0.0010655466725825015,
+      "training_tuning_s": 0.000577611
+    },
+    "braid_timing": {
+      "alpha": 1.0,
+      "bias_rad_s": -0.000341337432893078,
+      "cap_pass_p95": true,
+      "feature_count": 14,
+      "interval_90_coverage": 0.9571428571428572,
+      "interval_90_width_rad_s": 0.12020382813819877,
+      "mae_rad_s": 0.024794436111001125,
+      "per_track_budget_cap_ms": 50.0,
+      "per_track_full_pipeline_median_ms": 0.221619,
+      "per_track_full_pipeline_p95_ms": 0.43665279999999995,
+      "representation_s_all_splits": 0.078999914,
+      "rmse_rad_s": 0.030754286681783104,
+      "training_tuning_s": 0.000642158
+    },
+    "braid_word": {
+      "alpha": 0.01,
+      "bias_rad_s": -0.00291774014927932,
+      "cap_pass_p95": true,
+      "feature_count": 9,
+      "interval_90_coverage": 0.8857142857142857,
+      "interval_90_width_rad_s": 0.1102139875296852,
+      "mae_rad_s": 0.026321167156059883,
+      "per_track_budget_cap_ms": 50.0,
+      "per_track_full_pipeline_median_ms": 0.1003165,
+      "per_track_full_pipeline_p95_ms": 0.1753691,
+      "representation_s_all_splits": 0.03755197,
+      "rmse_rad_s": 0.03288237178563865,
+      "training_tuning_s": 0.000768589
+    },
+    "full_attributed_graph": {
+      "alpha": 0.01,
+      "bias_rad_s": -0.004929661721496462,
+      "cap_pass_p95": true,
+      "feature_count": 55,
+      "interval_90_coverage": 0.8857142857142857,
+      "interval_90_width_rad_s": 0.2995629443841934,
+      "mae_rad_s": 0.07824058286794738,
+      "per_track_budget_cap_ms": 50.0,
+      "per_track_full_pipeline_median_ms": 0.051117,
+      "per_track_full_pipeline_p95_ms": 0.09093589999999999,
+      "representation_s_all_splits": 0.021246705,
+      "rmse_rad_s": 0.09351247861691037,
+      "training_tuning_s": 0.003232483
+    },
+    "temporal": {
+      "alpha": 0.01,
+      "bias_rad_s": 0.00015418811422594674,
+      "cap_pass_p95": true,
+      "feature_count": 10,
+      "interval_90_coverage": 0.8571428571428571,
+      "interval_90_width_rad_s": 0.00308465398183011,
+      "mae_rad_s": 0.0007333583004077383,
+      "per_track_budget_cap_ms": 50.0,
+      "per_track_full_pipeline_median_ms": 0.186241,
+      "per_track_full_pipeline_p95_ms": 0.38228389999999995,
+      "representation_s_all_splits": 0.085049445,
+      "rmse_rad_s": 0.0010571974908043936,
+      "training_tuning_s": 0.000565633
+    }
+  },
+  "budget_rule": "50 ms p95 single-trajectory construction plus prediction (not training); training cost reported separately; runs on shared host so no hardware-equality claim",
+  "collision_control": {
+    "omega_a_rad_s": 0.04,
+    "omega_b_rad_s": 0.12,
+    "same_braid_word": true,
+    "same_temporal_features": false
+  },
+  "dataset": "synthetic direct-position constant-turn",
+  "duplicate_invariance": {
+    "braid_metrics": true,
+    "braid_timing": true,
+    "braid_word": true,
+    "full_attributed_graph": true,
+    "temporal": true
+  },
+  "interpretation": "Full attributed graph = fixed 18-node ordered vertex attribute vector with ridge regression; not graph neural network or exhaustive graph estimator. Full-graph vector is a higher-capacity baseline; 1.8 graph summary remains explicitly lossy.",
+  "machine": {
+    "numpy": "2.3.5",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.13.5"
+  },
+  "reference": {
+    "bias_rad_s": 2.398304980905889e-05,
+    "mae_rad_s": 0.0005421502628541439,
+    "per_track_mean_ms": 2.1291716,
+    "rmse_rad_s": 0.0007724909113003156,
+    "total_inference_s": 0.149042012
+  },
+  "seed": 20261117,
+  "split": {
+    "held_out": 70,
+    "training": 220,
+    "validation": 70
+  },
+  "version": "SKYTRACE 1.9"
+}
