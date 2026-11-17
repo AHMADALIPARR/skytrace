@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+// Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 /* End-to-end CLI test. Replays fixtures/reference/cli_sequence.txt against the native binary in a fresh
  * temporary root and compares the masked transcript byte-for-byte with cli_transcript.node.txt, which was
  * captured by running the original bin/skytrace.mjs under Node with the same sequence and masking. */
