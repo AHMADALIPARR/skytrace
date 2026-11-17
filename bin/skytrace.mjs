@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+// Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 import { readFile, writeFile, mkdir, readdir, copyFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { resolve, join, basename, dirname } from 'node:path';

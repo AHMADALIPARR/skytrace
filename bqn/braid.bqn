@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 # Fibonacci anyon braid representation of B₃ on the two-dimensional fusion space of three τ anyons.
 #   φ = (1+√5)/2,  F = [[φ⁻¹, φ^-½], [φ^-½, −φ⁻¹]],  R = diag(e^{−4πi/5}, e^{3πi/5}),
 #   σ₁ = R,  σ₂ = F R F  (F is real, symmetric and an involution).

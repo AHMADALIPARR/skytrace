@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 # Shape and numerical assertions. Every public transformation in the BQN engine routes its inputs and
 # outputs through these, so a wrong shape or a NaN/Inf aborts with a message naming the transformation
 # instead of propagating. (CBQN: NaN=NaN is 0, so 𝕩=𝕩 detects NaN.)
