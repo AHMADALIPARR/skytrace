@@ -1,3 +1,5 @@
+; SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+; Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 ; Independent SMT check (no SAW) of the case-activity policies over all 32-bit inputs.
 ; kernel: active = (s != 1) and (r != 1 or c != 1)        -- st_case_active / st_active
 ; strict: active = (s == 0) and (r != 1 or c != 1)        -- st_case_active_strict
