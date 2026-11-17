@@ -1,0 +1,85 @@
+{
+  "frozen_differences": {
+    "bearing_only": 0.0,
+    "multibearing": 0.0,
+    "fused": 0.0,
+    "fused_braid": 0.0
+  },
+  "aggregate": {
+    "bearing_only": {
+      "mean_seed_mae_rad_s": 0.07314931664697366,
+      "sd_seed_mae_rad_s": 0.0074383311740298715,
+      "approx_95ci_mean_mae_rad_s": [
+        0.06391488927406573,
+        0.08238374401988159
+      ],
+      "mean_coverage90": 0.93,
+      "mean_interval90_width_rad_s": 0.27597649445233735
+    },
+    "multibearing": {
+      "mean_seed_mae_rad_s": 0.008169225078302231,
+      "sd_seed_mae_rad_s": 0.001348600243901743,
+      "approx_95ci_mean_mae_rad_s": [
+        0.006494985155928678,
+        0.009843465000675785
+      ],
+      "mean_coverage90": 0.925,
+      "mean_interval90_width_rad_s": 0.04192458819856275
+    },
+    "fused": {
+      "mean_seed_mae_rad_s": 0.008163286194007482,
+      "sd_seed_mae_rad_s": 0.001349481642602442,
+      "approx_95ci_mean_mae_rad_s": [
+        0.006487952046047872,
+        0.009838620341967093
+      ],
+      "mean_coverage90": 0.925,
+      "mean_interval90_width_rad_s": 0.04188715290392589
+    },
+    "fused_braid": {
+      "mean_seed_mae_rad_s": 0.008361420668156974,
+      "sd_seed_mae_rad_s": 0.0009583926323993223,
+      "approx_95ci_mean_mae_rad_s": [
+        0.00717160981521712,
+        0.009551231521096827
+      ],
+      "mean_coverage90": 0.9149999999999998,
+      "mean_interval90_width_rad_s": 0.040785005999823834
+    }
+  },
+  "physical": {
+    "known": {
+      "omega_error": 0.0025467805376128434,
+      "clock_mae_s": 0.0,
+      "trajectory_rmse_m": 0.027031335577253086,
+      "nfev": 5.166666666666667,
+      "failed": 0
+    },
+    "unknown": {
+      "omega_error": 0.0024800699105365152,
+      "clock_mae_s": 0.005692928006846914,
+      "trajectory_rmse_m": 0.03217076162147963,
+      "nfev": 6.416666666666667,
+      "failed": 0
+    }
+  },
+  "braid": {
+    "temporal": {
+      "mae_rad_s": 0.008322415615216431,
+      "alpha": 0.01,
+      "construction_s": 0.13548833999993803,
+      "training_s": 0.000385149000067031,
+      "prediction_s": 1.4450999969994882e-05,
+      "features": 7
+    },
+    "fibonacci_matrix": {
+      "mae_rad_s": 0.008680911878829195,
+      "alpha": 0.01,
+      "construction_s": 0.26326702000005753,
+      "training_s": 0.0004819119999410759,
+      "prediction_s": 7.741999979771208e-06,
+      "features": 15
+    }
+  },
+  "wall_seconds": 23.289126720000013
+}
