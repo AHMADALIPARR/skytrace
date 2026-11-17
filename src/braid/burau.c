@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+// Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 /* Reduced Burau representation of B_3 over Z[t, t^-1] (faithful for n = 3):
  *   s1 -> [[-t, 1], [0, 1]]        s1^-1 -> [[-1/t, 1/t], [0, 1]]
  *   s2 -> [[1, 0], [t, -t]]        s2^-1 -> [[1, 0], [1, -1/t]]
