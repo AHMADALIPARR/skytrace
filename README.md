@@ -2,7 +2,7 @@
 
 SKYTRACE is an evidence-first research system for unidentified anomalous phenomena (UAP) records. It keeps official files intact, records where every artifact came from, reasons about provenance with explicit three-valued logic, and runs the physical and mathematical analyses that the research contract asks for. It is not a crawler, it does not decide that anything is of alien origin, and it does not turn a missing measurement into a measured zero.
 
-The production runtime is ISO C11, BQN and SWI-Prolog. The supervised ingestion layer is Elixir/OTP and the typed NDJSON normalizer is OCaml. There is no JavaScript or Python in the native runtime. The earlier JavaScript CLI and the Python research code are still in the repository as reference material, and the parts that are not yet ported are listed under [Remaining reference code](#remaining-reference-code).
+The production runtime is ISO C11, BQN and SWI-Prolog. The supervised ingestion layer is Elixir/OTP and the typed NDJSON normalizer is OCaml. There is no JavaScript or Python in the repository. The earlier JavaScript CLI and the Python research code were ported and then removed; see [Remaining reference code](#remaining-reference-code).
 
 Every number in this README comes from a test log. Nothing here is an estimate.
 
@@ -89,10 +89,9 @@ skytrace/
 ├── fixtures/                 synthetic archive batch, sensor graph, reference outputs
 ├── data/sources.json         the curated source registry
 ├── research/                 preregistrations, findings, Garside/Unlambda normalizer,
-│                             and the Python reference benchmarks
-├── docs/                     research program and the extracted design documents
-├── bin/, tests/core.test.mjs, package.json   the original JavaScript CLI (reference)
-└── numerics/                 the original Python sensor-graph kernel (reference)
+│                             the committed results of the former Python benchmarks,
+│                             and PORTING.md (Python → C11/BQN mapping and tolerances)
+└── docs/                     research program and the extracted design documents
 ```
 
 The design documents in `docs/` are `RESEARCH_PROGRAM.md`, `UAP_ARCHIVES_PROVENANCE_AND_BRAID_PIPELINE.md`, `GARSIDE_UNLAMBDA_NORMALIZER.md` and `SKYTRACE_2_2_NUMERICAL_RELEASE.md`. The full implementation contract is `spec/BUILD_SPEC.md`.
@@ -120,7 +119,7 @@ The `SKYTRACE_REQUIRE_*` options make configuration fail when a tool is missing,
 
 CI (`.github/workflows/native.yml`) runs the same steps on `ubuntu-latest`: it installs cmake, gcc, clang, SWI-Prolog and z3, builds or restores CBQN at the pinned commit, downloads SAW 1.6 with its solvers, then configures, builds, runs `ctest -j1` and runs the original kernel tests.
 
-The 21 ctest targets are the seven C11 module tests, the CLI transcript replay, three CLI checks (`braid-check`, `quantum-check`, `fit` against the Python reference), the BQN export and assertions, plunit, two z3 lemma files, three bitcode builds and two SAW proof scripts.
+The 35 ctest targets are the seven C11 module tests, the CLI transcript replay, four research-port test programs (RNG streams, parameter recovery / graph budget / source fusion, task information / speculative math / numerical audit, joint fusion / release 2.2), eight `research-check` comparisons against the committed Python results, three CLI checks (`braid-check`, `quantum-check`, `fit` against the Python reference), the BQN export and assertions, the research export and BQN research checks, plunit, two z3 lemma files, three bitcode builds and two SAW proof scripts.
 
 ## Command-line interface
 
@@ -140,7 +139,7 @@ skytrace fit fixtures/reference/physical_fixture.seeds0-11.json research/release
 skytrace export <dir>
 ```
 
-- `sources`, `ingest`, `cases` and `verify` keep the behavior of the original `bin/skytrace.mjs`, and `native_cli` checks their output against the recorded transcript. `ingest` copies the file into `data/raw/` under its SHA-256 name, never overwrites an existing object, writes the case record and appends an event to the journal. `verify` re-hashes every stored object and checks the whole journal chain.
+- `sources`, `ingest`, `cases` and `verify` keep the behavior of the original JavaScript CLI (`bin/skytrace.mjs`, now removed), and `native_cli` checks their output against the recorded transcript. `ingest` copies the file into `data/raw/` under its SHA-256 name, never overwrites an existing object, writes the case record and appends an event to the journal. `verify` re-hashes every stored object and checks the whole journal chain.
 - `analyze` reads NDJSON sensor-graph requests on stdin and writes one canonical response per line. Its output is byte-identical to the Python reference on the sensor fixtures.
 - `records` validates a provenance batch; `braid-equiv` decides exact equivalence of two B₃ words; `fit` runs the constant-turn fit on the twelve-seed fixture against the Python 2.2 output; `export` writes the STBUF buffers.
 - `braid-check` and `quantum-check` print JSON with each check's value, expected value, tolerance and pass flag, plus the interpretation note.
@@ -341,13 +340,13 @@ Every research dataset in the repository is synthetic and labeled as such. No sy
 
 ## Remaining reference code
 
-The native runtime does not need JavaScript or Python, but these files are still in the repository:
+None remains. All JavaScript and Python files were ported and then deleted:
 
-- **JavaScript (reference):** `bin/skytrace.mjs`, `tests/core.test.mjs` and `package.json`. The native CLI replaces them and `native_cli` checks against their recorded transcript (`fixtures/reference/cli_transcript.node.txt`).
-- **Python ported to C11/Prolog:** `numerics/sensor_graph.py` and its test (now `skytrace analyze`), `spec/tests/schema_contract.py` and `research/tests/test_hypotheses.py` (now the Prolog `schema_contract` and `hypotheses_contract` suites), and the 2.2 clock-inference path of `research/release_22/benchmark.py` (now `skytrace fit`, compared with its output).
-- **Python not yet ported:** the remaining benchmarks and their tests under `research/` — `graph_budget/`, `joint_fusion/`, `numerical/analyze.py`, `parameter_recovery/`, `release_22/` (the rest of the benchmark and `kernel_port.py`), `source_fusion/`, `speculative_math/` and `task_information/`. They are kept as the source of the reference numbers.
+- **JavaScript:** `bin/skytrace.mjs`, `tests/core.test.mjs` and `package.json`. The native CLI replaces them and `native_cli` checks against their recorded transcript (`fixtures/reference/cli_transcript.node.txt`).
+- **Python ported to C11/Prolog:** `numerics/sensor_graph.py` and its test (now `skytrace analyze`), `spec/tests/schema_contract.py` and `research/tests/test_hypotheses.py` (now the Prolog `schema_contract` and `hypotheses_contract` suites).
+- **Python research benchmarks ported to C11/BQN:** `graph_budget/`, `joint_fusion/`, `numerical/analyze.py`, `parameter_recovery/`, `release_22/` (including `kernel_port.py`, now `skytrace port`), `source_fusion/`, `speculative_math/` and `task_information/`, with their tests. `skytrace research <study>` reruns a study and `skytrace research-check <study>` compares it with the committed `results*.json`. The mapping and tolerances are in `research/PORTING.md`.
 
-None of these files is used by the native build or by CI.
+`beam/` was left unchanged: `Skytrace.Numerical.analyze/3` still launches its kernel path through `python3` by default.
 
 ## Limitations and epistemic rules
 
