@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 defmodule Skytrace.Adapters do
   @moduledoc "Source-specific coercion of *archived structured rows* to normalized input."
   @mime %{"pdf" => "application/pdf", "vid" => "video/mp4", "img" => "image/jpeg", "aud" => "audio/mpeg"}
