@@ -1,0 +1,20 @@
+{
+  "braid_vs_temporal_improvement": 0.0,
+  "dataset": "synthetic_angular_track_direction",
+  "different_measurement_retained": true,
+  "duplication_invariant": true,
+  "models": {
+    "braid_abelianization": 1.0,
+    "combined_temporal_braid": 1.0,
+    "lossy_absolute_magnitude_baseline": 0.35,
+    "temporal_signed_rate_baseline": 1.0
+  },
+  "range_field_changes_canonical_state": true,
+  "range_without_platform_calibration_does_not_identify_metric_velocity": true,
+  "scope": "No independent physics inference; braid crossing map is a modeling choice.",
+  "seed": 20261117,
+  "task": "binary_sign_of_underlying_angular_velocity",
+  "test_n": 100,
+  "train_n": 100,
+  "units": "radians and seconds"
+}
