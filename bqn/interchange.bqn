@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 # STBUF typed interchange buffers shared with the C engine (include/skytrace/core.h):
 #   bytes 0..7   magic "STBUF" 0 0 1
 #   bytes 8..11  u32 element type: 1 = f64, 2 = i64

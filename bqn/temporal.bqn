@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 # Temporal operations on sampled series. Times are seconds on one declared clock; sensor clocks are
 # mapped to the reference clock with explicit per-sensor offsets (reference sensor offset is 0).
 a ← •Import "assert.bqn"

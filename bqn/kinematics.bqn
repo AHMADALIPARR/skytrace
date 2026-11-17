@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 # Angular velocity / acceleration and trajectory features from sampled positions (t list, xy n×2).
 a ← •Import "assert.bqn"
 tm ← •Import "temporal.bqn"
