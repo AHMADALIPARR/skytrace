@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 """SKYTRACE 2.0 source-attribute ablation on frozen *synthetic* tracks.
 Source registry is real public source catalog metadata, but all track/source
 associations are SYNTHETIC and NEVER describe archived UAP recordings.

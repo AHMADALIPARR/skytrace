@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SnapKitty-Opaque-1.0
+# Copyright (C) 2026 Ahmad Ali Parr / SnapKitty Research Lab
 """SKYTRACE speculative math: finite classical models, not physical probe detection."""
 from __future__ import annotations
 from collections import deque
